@@ -24,7 +24,6 @@ module.exports = {
 
     async delete(req, res) {
         const { id } = req.params;
-        // const { nome } = req.body;
 
         const produto = await Produto.findByPk(id);
 
@@ -35,6 +34,29 @@ module.exports = {
         await Produto.destroy({
             where: { id }
         })
+
+        return res.json();
+
+    },
+
+    async put(req, res) {
+        const { id } = req.params;
+
+        const { nome, quantidade } = req.body;
+
+        const produto = await Produto.findByPk(id);
+
+        if (!produto) {
+            return res.status(400).json({ error: 'Product not found ' });
+        }
+
+        produto.update({
+            nome: nome, quantidade: quantidade,
+        }, {
+            where: {
+                id: id
+            }
+        });
 
         return res.json();
 
