@@ -42,7 +42,7 @@ module.exports = {
     async put(req, res) {
         const { id } = req.params;
 
-        const { nome, quantidade } = req.body;
+        const { nome, desc, preco, quantidade, nome_fornecedor } = req.body;
 
         const produto = await Produto.findByPk(id);
 
@@ -51,7 +51,8 @@ module.exports = {
         }
 
         produto.update({
-            nome: nome, quantidade: quantidade,
+            nome: nome, desc: desc, preco: preco,
+            quantidade: quantidade, nome_fornecedor: nome_fornecedor,
         }, {
             where: {
                 id: id
